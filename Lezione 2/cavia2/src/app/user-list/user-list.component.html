@@ -1,0 +1,5 @@
+<div class="row">
+    <app-user-card *ngFor="let item of users; index as indice" [indice]="indice" [user]="item"
+        (emitterCardClicked)="onUserClicked($event)">
+    </app-user-card>
+</div>

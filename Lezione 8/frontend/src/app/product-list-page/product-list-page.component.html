@@ -1,0 +1,142 @@
+<app-modal-filter [items]="marche" [itemsSelected]="marcheSelezionate" labelKey="marca" valueKey="marca"
+    (emitterFilterApply)="applicaFiltroMarche($event)"
+    (emitterFilterRemove)="eliminaFiltro('marca')"></app-modal-filter>
+<div class="modal fade" id="modalePrezzo" tabindex="-1" aria-labelledby="modalePrezzoLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modalePrezzoLabel">Filtra prezzo</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <div class="form-row">
+                        <label>Prezzo minimo</label>
+                        <input type="number" class="form-control" [(ngModel)]="prezzoMin" [defaultValue]="0" />
+                    </div>
+                    <div class="form-row">
+                        <label>Prezzo massimo</label>
+                        <input type="number" class="form-control" [(ngModel)]="prezzoMax" [defaultValue]="1000" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                    (click)="applicaFiltro('prezzo')">Applica filtro</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                    (click)="eliminaFiltro('prezzo')">Elimina filtro</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modaleDisponibile" tabindex="-1" aria-labelledby="modaleDisponibileLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modaleDisponibileLabel">Filtra disponibilità</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <select class="form-select" style="height:100%" [(ngModel)]="disponibileSiNo"
+                    aria-label="multiple select example">
+                    <option [value]="true">Disponibile</option>
+                    <option [value]="false">Non disponibile</option>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                    (click)="applicaFiltro('disponibile')">Applica filtro</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                    (click)="eliminaFiltro('disponibile')">Elimina filtro</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-4 p-4">
+        <a [routerLink]="['/stats']" class="btn btn-info">Statistiche</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 ps-4">
+        <h4>Elenco prodotti</h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 ps-4 pe-4">
+        <table class="table">
+            <thead class="table-header bg-white table-light shadow-sm">
+                <tr>
+                    <td>
+                        <button class="btn btn-link" (click)="switchOrderBy('id')">
+                            <i class="bi bi-sort-up" *ngIf="ascend"></i>
+                            <i class="bi bi-sort-down" *ngIf="!ascend"></i>
+                        </button>
+                        <span [ngStyle]="getHeaderStyle('id')">Id</span>
+                    </td>
+                    <td>
+                        <button class="btn btn-link" (click)="switchOrderBy('marca')">
+                            <i class="bi bi-sort-up" *ngIf="ascend"></i>
+                            <i class="bi bi-sort-down" *ngIf="!ascend"></i>
+                        </button>
+                        <span [ngStyle]="getHeaderStyle('marca')">Marca</span>
+                        <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#modaleMarca">
+                            <i class="bi bi-filter-circle" [ngClass]="{'text-danger':isFilterActive('marca')}"></i>
+                        </button>
+                    </td>
+                    <td scope="col"> <button class="btn btn-link" (click)="switchOrderBy('codice')">
+                            <i class="bi bi-sort-up" *ngIf="ascend"></i>
+                            <i class="bi bi-sort-down" *ngIf="!ascend"></i>
+                        </button> <span [ngStyle]="getHeaderStyle('codice')">Codice</span>
+                    </td>
+                    <td scope="col"><button class="btn btn-link" (click)="switchOrderBy('prezzo')">
+                            <i class="bi bi-sort-up" *ngIf="ascend"></i>
+                            <i class="bi bi-sort-down" *ngIf="!ascend"></i>
+                        </button> <span [ngStyle]="getHeaderStyle('prezzo')">Prezzo</span>
+                        <button type="button" class="btn btn-link" data-bs-toggle="modal"
+                            data-bs-target="#modalePrezzo">
+                            <i class="bi bi-filter-circle" [ngClass]="{'text-danger':isFilterActive('prezzo')}"></i>
+                        </button>
+                    </td>
+                    <td scope="col">Disponibile <button type="button" class="btn btn-link" data-bs-toggle="modal"
+                            data-bs-target="#modaleDisponibile">
+                            <i class="bi bi-filter-circle"
+                                [ngClass]="{'text-danger':isFilterActive('disponibile')}"></i>
+                        </button></td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let product of items">
+                    <td class="col-2" scope="row">{{product.id}}</td>
+                    <td class="col-2">{{product.marca}}</td>
+                    <td class="col-2">{{product.codice}}</td>
+                    <td class="col-2">{{product.prezzo|number:"1.1-3"}} €</td>
+                    <td class="col-2">
+                        <span *ngIf="product.disponibile">Si</span>
+                        <span *ngIf="!product.disponibile">No</span>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div clas="row">
+    <div class="col-lg-12">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item"><button class="page-link" [ngClass]="{'disabled':page == 1}"
+                        (click)="pageChange(page-1)">Precedente</button>
+                </li>
+                <li *ngFor="let num of numberOfPages" class="page-item"><button [ngClass]="{'active':num == page}"
+                        (click)="pageChange(num)" class="page-link">{{num}}</button></li>
+                <li class="page-item"><button (click)="pageChange(page+1)"
+                        [ngClass]="{'disabled':page == numberOfPages.length}" class="page-link">Prossima</button>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>

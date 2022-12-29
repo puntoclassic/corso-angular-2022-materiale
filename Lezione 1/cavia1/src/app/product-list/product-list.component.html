@@ -1,0 +1,4 @@
+<div *ngFor="let item of lista">
+    <cst-prodotto-fisico *ngIf="isProdottoFisico(item)"></cst-prodotto-fisico>
+    <cst-prodotto-virtuale *ngIf="isProdottoVirtuale(item)"></cst-prodotto-virtuale>
+</div>

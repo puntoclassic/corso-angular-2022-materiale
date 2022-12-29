@@ -1,0 +1,8 @@
+<form (ngSubmit)="formSubmit()">
+    <label>Nome</label>
+    <input type="text" name="nome" [(ngModel)]="nomeField" /><br />
+    <p *ngIf="nomeField.length == 0">Campo vuoto</p>
+    <label>Cognome</label>
+    <input type="text" name="cognome" [(ngModel)]="cognomeField" />
+    <p *ngIf="cognomeField.length == 0">Campo vuoto</p>
+</form>

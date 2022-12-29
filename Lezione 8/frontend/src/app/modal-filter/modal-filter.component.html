@@ -1,0 +1,23 @@
+<div class="modal fade" id="modaleMarca" tabindex="-1" aria-labelledby="modaleMarcaLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" style="height: 600px;">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modaleMarcaLabel">Filtra per {{filterName}}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="height: 600px;">
+                <select class="form-select" style="height:100%" [(ngModel)]="itemsSelected" multiple
+                    aria-label="multiple select example">
+                    <option [value]="item[labelKey]" *ngFor="let item of items">{{item[valueKey]}}</option>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                    (click)="emitterFilterApply.emit(itemsSelected)">Applica filtro</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                    (click)="emitterFilterRemove.emit(filterName)">Elimina filtro</button>
+            </div>
+        </div>
+    </div>
+</div>

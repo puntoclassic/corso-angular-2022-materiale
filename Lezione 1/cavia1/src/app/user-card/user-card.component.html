@@ -1,0 +1,5 @@
+<p>Nome: {{user.nome}}</p>
+<p>Cognome: {{user.cognome}}</p>
+<p>Data fine contratto <span
+        [ngStyle]="{'color': isExpired ? 'red' : 'black'}">{{user.dataFineContratto.toDateString()}}</span>
+</p>

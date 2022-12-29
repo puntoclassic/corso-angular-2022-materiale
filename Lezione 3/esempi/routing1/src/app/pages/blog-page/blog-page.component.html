@@ -1,0 +1,25 @@
+<div class="row">
+    <app-menu></app-menu>
+</div>
+
+<div class="row p-4" *ngIf="articles">
+    <div class="col-lg-12">
+        <div class="row">
+            <div *ngFor="let articolo of articles" class="col-lg-4 pt-4">
+                <a [routerLink]="['/blog',articolo.id]">
+                    <p class="fs-5">{{articolo.title}}</p>
+                </a>
+                <div [innerHTML]="articolo.content.slice(0,500)"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row p-4 d-flex justify-content-center align-items-center flex-grow-1 flex-column" *ngIf="!articles">
+    <div class="col-lg-12">
+        <div class="row d-flex justify-content-center align-items-center flex-grow-1 flex-column">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+</div>

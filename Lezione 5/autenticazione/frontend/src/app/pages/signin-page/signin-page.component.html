@@ -1,0 +1,53 @@
+<div class="container bg-white d-flex flex-grow-1 flex-column p-4 justify-content-center align-items-center">
+    <div class="row">
+        <div class="col-lg-12">
+            <form [formGroup]="formGroup" (submit)="doLogin(formGroup.value)">
+
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Nome</label>
+                    <input type="text" formControlName="firstname" class="form-control"
+                        [ngClass]="{'is-invalid': formGroup.controls['firstname'].hasError('required') && formGroup.controls['firstname'].dirty}"
+                        id="exampleInputEmail1">
+                    <div class="invalid-feedback">
+                        <span *ngIf="formGroup.controls['firstname'].hasError('required')">Inserisci il tuo
+                            nome</span>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Cognome</label>
+                    <input type="text" formControlName="lastname" class="form-control"
+                        [ngClass]="{'is-invalid': formGroup.controls['lastname'].hasError('required') && formGroup.controls['lastname'].dirty}"
+                        id="exampleInputEmail1">
+                    <div class="invalid-feedback">
+                        <span *ngIf="formGroup.controls['lastname'].hasError('required')">Inserisci il tuo
+                            cognome</span>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Email</label>
+                    <input type="email" formControlName="email" class="form-control"
+                        [ngClass]="{'is-invalid': (formGroup.controls['email'].hasError('required') ||formGroup.controls['email'].hasError('email')) && formGroup.controls['email'].dirty}"
+                        id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <div class="invalid-feedback">
+                        <span *ngIf="formGroup.controls['email'].hasError('required')">Inserisci un indirizzo
+                            email</span>
+                        <span *ngIf="formGroup.controls['email'].hasError('email')">Inserisci un indirizzo
+                            email valido</span>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                    <input type="password"
+                        [ngClass]="{'is-invalid': (formGroup.controls['password'].hasError('required'))&& formGroup.controls['password'].dirty}"
+                        formControlName="password" class="form-control" id="exampleInputPassword1">
+                    <div class="invalid-feedback">
+                        <span *ngIf="formGroup.controls['password'].hasError('required')">Inserisci la password</span>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-success" [disabled]="!formGroup.valid">Crea account</button>
+            </form>
+        </div>
+    </div>
+</div>

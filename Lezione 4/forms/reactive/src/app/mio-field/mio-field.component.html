@@ -1,0 +1,6 @@
+<div>
+    <ng-content></ng-content>
+    <p *ngIf="field?.hasError('required') && field?.dirty">Il campo deve contenere un valore</p>
+    <p *ngIf="field?.hasError('espressioniOffensive') && field?.dirty">Perfavore non inserire espressioni offensive</p>
+
+</div>

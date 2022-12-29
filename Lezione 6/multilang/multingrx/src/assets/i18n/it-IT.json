@@ -1,0 +1,10 @@
+{    
+    "TEXT": {
+        "WALK":"camminare",
+        "READ":"leggere",
+        "EAT":"mangiare",
+        "STUDY":"studiare"
+    },
+    "ERROR_UNABLE_CREATEPRODUCT":"Impossibile creare il prodotto"
+
+}
